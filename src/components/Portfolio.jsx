@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Mail, Phone, Linkedin, MapPin, Code, Zap, Cpu, ChevronDown, ExternalLink, Calendar, Award, GraduationCap, Briefcase, BookOpen, Settings, User, Home, Wrench, Github, Download, Star, ArrowRight, Play, Pause, Volume2, Send, Eye, Heart, Target, Rocket, CheckCircle, ArrowUpRight } from 'lucide-react';
+import { Mail, Phone, Linkedin, MapPin, Code, Zap, Cpu, ChevronDown, ExternalLink, Calendar, Award, GraduationCap, Briefcase, BookOpen, Settings, User, Home, Wrench, Github, Download, Star, ArrowRight, Play, Pause, Volume2, Send, Eye, Heart, Target, Rocket, CheckCircle, ArrowUpRight, Youtube } from 'lucide-react';
+import emailjs from 'emailjs-com';
 
 const Portfolio = () => {
   const [activeSection, setActiveSection] = useState('home');
@@ -10,10 +11,17 @@ const Portfolio = () => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
 
   const quotes = [
-    "Innovation distinguishes between a leader and a follower.",
-    "The future belongs to those who believe in the beauty of their dreams.",
-    "Technology is nothing. What's important is that you have faith in people."
-  ];
+  "Innovation distinguishes between a leader and a follower.",
+  "The future belongs to those who believe in the beauty of their dreams.",
+  "Technology is nothing. What's important is that you have faith in people.",
+  "The science of today is the technology of tomorrow.",
+  "Any sufficiently advanced technology is indistinguishable from magic.",
+  "It has become appallingly obvious that our technology has exceeded our humanity.",
+  "Technology like art is a soaring exercise of the human imagination.",
+  "Software is a great combination between artistry and engineering.",
+  "The real problem is not whether machines think but whether men do.",
+  "The advance of technology is based on making it fit in so that you don't really even notice it."
+];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -68,15 +76,46 @@ const Portfolio = () => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission
-    console.log('Form submitted:', formData);
-    alert('Message sent! I will get back to you soon.');
-    setFormData({ name: '', email: '', message: '' });
-  };
+  e.preventDefault();
+  console.log('Form submitted:', formData);
+
+  emailjs.send(
+    'service_bvb48sg',      // e.g. "service_xxx"
+    'template_iqmqohl',     // e.g. "template_yyy"
+      {
+    name: formData.name,
+    email: formData.email,
+    message: formData.message,
+  },               // This must match your template variables in EmailJS
+    'PbzZ2boWt375lywFD'       // e.g. "fP7xXXx...abcd"
+  )
+  .then(
+    (result) => {
+      console.log(result.text);
+      alert('Message sent! I will get back to you soon.');
+      setFormData({ name: '', email: '', message: '' });
+    },
+    (error) => {
+      console.log(error.text);
+      alert('Failed to send message. Please try again later.');
+    }
+  );
+};
 
   const experiences = [
+        {
+      company: "EAPRO GLOBAL LTD",
+      role: "Hardware Engineer",
+      period: "Mar 2025 - May 2025",
+      location: "Roorkee, Uttarakhand",
+      type: "Full-time",
+      description: "Engineered sophisticated PCB layouts and hardware designs for Li-ion 4-Cell BMS projects. Implemented advanced BMS IC (BQ40Z50) integration with MSPM0C1104 microcontroller systems.",
+      skills: ["PCB Design", "BMS Architecture", "Hardware Testing", "Microcontroller Programming", "Power Management"],
+      achievements: ["Delivered BMS solution ahead of schedule", "Optimized power efficiency by 25%"],
+      color: "from-blue-500 to-indigo-600"
+    },
     {
+        
       company: "vivo Mobile India Pvt. Ltd.",
       role: "Process Electronic Engineer",
       period: "Sep 2024 - Feb 2025",
@@ -87,17 +126,7 @@ const Portfolio = () => {
       achievements: ["Reduced defect detection time by 30%", "Improved component reliability testing"],
       color: "from-emerald-500 to-teal-600"
     },
-    {
-      company: "EAPRO GLOBAL LTD",
-      role: "Hardware Engineer",
-      period: "Mar 2025 - May 2025",
-      location: "Roorkee, Uttarakhand",
-      type: "Contract",
-      description: "Engineered sophisticated PCB layouts and hardware designs for Li-ion 4-Cell BMS projects. Implemented advanced BMS IC (BQ40Z50) integration with MSPM0C1104 microcontroller systems.",
-      skills: ["PCB Design", "BMS Architecture", "Hardware Testing", "Microcontroller Programming", "Power Management"],
-      achievements: ["Delivered BMS solution ahead of schedule", "Optimized power efficiency by 25%"],
-      color: "from-blue-500 to-indigo-600"
-    },
+
     {
       company: "OGOENERGY India Pvt. Ltd.",
       role: "Research & Development Engineer",
@@ -129,10 +158,32 @@ const Portfolio = () => {
       description: "Revolutionary IoT-based asset tracking solution featuring SIM808 integration for real-time geolocation and GSM connectivity with advanced power management.",
       tech: ["STM32F4", "SIM808", "PCB Design", "IoT", "GSM/GPRS", "GPS"],
       status: "Completed",
-      link: "#",
+      link: "https://drive.google.com/drive/folders/1d-HnlCkWJr4aRg4ZO92SvlcuvDgJs-yD?usp=sharing",
       github: "#",
-      image: "🚀",
+    
       impact: "Real-time tracking with 99.9% uptime"
+    },
+     {
+      title: "Hardware Design of an IoT Gateway System for Industrial Applications",
+      period: "May 2025 - June 2025",
+      description: "IoT gateway was designed using the Quectel EC200Axx 4G LTE module for cloud communication, RS485 transceiver IC for interfacing with industrial sensors and PLCs.",
+      tech: ["Quectel EC200Axx", "RS485 Communication", "SIM Interface", "DC-DC Buck Converter", "ALTIUM 25"],
+      status: "Completed",
+      link: "https://drive.google.com/drive/folders/1sTIPT9QnPvN0Klqp5O3ifoWznrOrlko1?usp=sharing",
+      github: "#",
+   
+      impact: "Real-time tracking with 99.9% uptime"
+    },
+    {
+      title: "Designing a Radio Module for a Specific RF Application",
+      period: "May 2025 - May 2025",
+      description: "The system utilizes the nRF24L01P-T, a 2.4 GHz transceiver module, for wireless data transmission and reception, interfaced with an STM32F030C8Tx microcontroller via the SPI protocol.",
+      tech: ["nRF24L01P-T", "STM32F0x", "SPI", "PCB"],
+      status: "Completed",
+      link: "https://drive.google.com/drive/folders/1GDLvRAuAeQow377f6u-2dmisAzocPIM4?usp=sharing",
+      github: "#",
+      
+      impact: " Enables low-cost, low-power wireless communication for real-time IoT and embedded applications."
     },
     {
       title: "Autonomous Guided Vehicle (AGV)",
@@ -142,7 +193,7 @@ const Portfolio = () => {
       status: "Published",
       link: "#",
       github: "#",
-      image: "🤖",
+    
       impact: "Improved warehouse efficiency by 40%"
     },
     {
@@ -151,9 +202,9 @@ const Portfolio = () => {
       description: "Groundbreaking research on bacterial propagation dynamics in human respiratory tract with IEEE conference publication and novel mathematical modeling.",
       tech: ["MATLAB", "Statistical Modeling", "Biomedical Engineering", "Research", "Data Analysis"],
       status: "Published",
-      link: "#",
+      link: "https://ieeexplore.ieee.org/document/10593361",
       github: "#",
-      image: "🧬",
+     
       impact: "IEEE Conference Publication"
     },
     {
@@ -164,14 +215,26 @@ const Portfolio = () => {
       status: "Published",
       link: "#",
       github: "#",
-      image: "📡",
+   
       impact: "SCI Journal Publication"
-    }
+    },
+
+     {
+      title: "DMC Approach for Bacterial Propagation over Spherical Biological Deployment.",
+      period: "Oct 2023-Jun 2024",
+      description: "Analyzing the bacteria reception at the end of Rx (Lung & Kidney). Considering the SBD is in this research representing 3D shape of Rx.",
+      tech: ["Signal Processing", "Communication Theory", "MATLAB", "Research", "Mathematical Modeling"],
+      status: "Published",
+      link: "https://drive.google.com/file/d/1miIcbWfObkSuDtqSvsZEWjqySg-vENn-/view?usp=drive_link",
+      github: "#",
+ 
+      impact: "ISFT Publication"
+    },
   ];
 
   const skills = {
     "Programming & Development": {
-      skills: ["C/C++", "Embedded C", "MATLAB", "Python", "Assembly"],
+      skills: ["C", "MATLAB", "Python","IOT"],
       icon: Code,
       color: "from-blue-400 to-cyan-500"
     },
@@ -252,10 +315,8 @@ const Portfolio = () => {
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex justify-between items-center">
             <div className="text-2xl font-bold text-white flex items-center space-x-2">
-              <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-                <Rocket size={20} className="text-white" />
-              </div>
-              <span>Rahul<span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Maurya</span></span>
+             
+              <span>Rahul<span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500"> Maurya</span></span>
             </div>
             
             <div className="hidden md:flex items-center space-x-1 bg-white/5 backdrop-blur-sm rounded-2xl p-2 border border-white/10">
@@ -282,13 +343,13 @@ const Portfolio = () => {
               ))}
             </div>
             
-            <a 
-              href="mailto:mr.rahulmaurya024@gmail.com"
-              className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-2 rounded-xl font-semibold hover:shadow-lg hover:shadow-blue-500/25 transition-all transform hover:scale-105 flex items-center space-x-2"
-            >
-              <Send size={18} />
-              <span>Hire Me</span>
-            </a>
+                <div
+                className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-2 rounded-xl font-semibold hover:shadow-lg hover:shadow-blue-500/25 transition-all transform hover:scale-105 flex items-center space-x-2 cursor-pointer"
+                onClick={() => scrollToSection('contact')}
+                >
+                <Send size={18} />
+                <span>Let's Connect</span>
+                </div>
           </div>
         </div>
       </nav>
@@ -314,15 +375,25 @@ const Portfolio = () => {
           {/* Profile Section */}
           <div className="mb-12 relative">
             <div className="relative w-40 h-40 mx-auto mb-8">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-full animate-spin opacity-75"></div>
-              <div className="absolute inset-2 bg-gradient-to-r from-blue-600 to-purple-700 rounded-full flex items-center justify-center">
-                <User size={80} className="text-white" />
-              </div>
-              <div className="absolute -bottom-2 -right-2 w-12 h-12 bg-gradient-to-r from-green-400 to-emerald-500 rounded-full flex items-center justify-center border-4 border-slate-900">
+                {/* Outer spinning gradient ring */}
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-full animate-spin opacity-75"></div>
+                
+                {/* Image container */}
+                <div className="absolute inset-2 bg-gradient-to-r from-blue-600 to-purple-700 rounded-full flex items-center justify-center overflow-hidden">
+                <img
+                    src="pp.jpg" // ← replace this path with your actual image URL or path
+                    alt="Rahul Maurya"
+                    className="w-full h-full object-cover rounded-full"
+                />
+                </div>
+
+                {/* Bottom-right verified badge */}
+                <div className="absolute -bottom-2 -right-2 w-12 h-12 bg-gradient-to-r from-green-400 to-emerald-500 rounded-full flex items-center justify-center border-4 border-slate-900">
                 <CheckCircle size={20} className="text-white" />
-              </div>
+                </div>
             </div>
-            
+          
+
             <h1 className="text-6xl md:text-8xl font-bold text-white mb-6 relative">
               <span className="inline-block hover:animate-bounce">R</span>
               <span className="inline-block hover:animate-bounce">a</span>
@@ -351,10 +422,10 @@ const Portfolio = () => {
           {/* Specialization Tags */}
           <div className="flex flex-wrap justify-center gap-4 mb-12">
             {[
-              { icon: Zap, text: "EV Charging Systems", color: "from-yellow-400 to-orange-500" },
-              { icon: Cpu, text: "PCB Design Master", color: "from-green-400 to-emerald-500" },
+              { icon: Zap, text: "Embeded Hardware Design", color: "from-yellow-400 to-orange-500" },
+              { icon: Cpu, text: "PCB Layout Desgin", color: "from-green-400 to-emerald-500" },
               { icon: Wrench, text: "Hardware Testing Pro", color: "from-blue-400 to-indigo-500" },
-              { icon: Code, text: "Embedded Systems", color: "from-purple-400 to-pink-500" }
+              { icon: Code, text: "Power Electronics", color: "from-purple-400 to-pink-500" }
             ].map((item, index) => (
               <div key={index} className={`group flex items-center space-x-3 bg-gradient-to-r ${item.color} p-4 rounded-2xl transform hover:scale-110 transition-all duration-300 cursor-pointer shadow-lg hover:shadow-2xl`}>
                 <item.icon className="text-white group-hover:animate-pulse" size={24} />
@@ -383,7 +454,7 @@ const Portfolio = () => {
             </button>
             
             <a 
-              href="#"
+              href="Rahul_Resume_HDE.pdf"
               className="px-8 py-4 bg-white/10 backdrop-blur-sm text-white rounded-2xl font-bold text-lg hover:bg-white/20 transition-all transform hover:scale-105 flex items-center justify-center space-x-2 border border-white/20"
             >
               <Download size={20} />
@@ -411,12 +482,12 @@ const Portfolio = () => {
             {/* Left Column - Story */}
             <div className="space-y-8">
               <div className="prose prose-lg text-gray-300">
-                <p className="text-xl leading-relaxed">
+                <p className="text-xl leading-relaxed text-justify">
                   I'm a passionate Electronics & Communication Engineer with a relentless drive for innovation. 
                   My journey in technology began with curiosity about how things work, and has evolved into expertise 
                   in creating sophisticated solutions for tomorrow's challenges.
-                </p>
-                <p className="text-lg leading-relaxed">
+                
+               
                   Specializing in power electronics, embedded systems, and hardware design, I've contributed to 
                   cutting-edge projects ranging from EV charging infrastructure to advanced biomedical research. 
                   Every project is an opportunity to push boundaries and create meaningful impact.
@@ -426,8 +497,8 @@ const Portfolio = () => {
               {/* Quick Stats */}
               <div className="grid grid-cols-2 gap-6">
                 {[
-                  { number: "4+", label: "Years Experience", icon: Calendar },
-                  { number: "15+", label: "Projects Completed", icon: Code },
+                  { number: "2+", label: "Years Experience", icon: Calendar },
+                  { number: "5+", label: "Projects Completed", icon: Code },
                   { number: "3", label: "Research Papers", icon: BookOpen },
                   { number: "5+", label: "Technologies Mastered", icon: Star }
                 ].map((stat, index) => (
@@ -471,7 +542,7 @@ const Portfolio = () => {
                     <h4 className="text-white font-semibold text-lg">B.Tech Electronics and Communication</h4>
                     <p className="text-blue-400 font-medium">Galgotias College of Engineering & Technology</p>
                     <p className="text-gray-400">SGPA: 7.3/10 | 2020-2024</p>
-                    <p className="text-gray-300 text-sm mt-2">Specialized in Signal Processing, Communication Systems, and Power Electronics</p>
+                    <p className="text-gray-300 text-sm mt-2">Specialized in Electronics and Communication Engineering</p>
                   </div>
                   <div className="relative pl-6">
                     <div className="absolute left-0 top-2 w-3 h-3 bg-gradient-to-r from-green-500 to-emerald-600 rounded-full"></div>
@@ -484,26 +555,52 @@ const Portfolio = () => {
 
               {/* Certifications */}
               <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm rounded-3xl p-8 border border-white/10 hover:border-purple-500/30 transition-all">
-                <h3 className="text-2xl font-semibold text-white mb-6 flex items-center">
-                  <Award className="mr-3 text-purple-400" size={28} />
-                  Certifications
-                </h3>
-                <div className="space-y-4">
-                  {[
-                    { title: '"INUPi2i" Nano Fabrication', org: 'IIT Delhi', color: 'text-yellow-400' },
-                    { title: 'AGV & Drone Technology', org: 'Advanced Robotics', color: 'text-green-400' },
-                    { title: 'Team Leadership', org: 'Expo Management', color: 'text-blue-400' }
-                  ].map((cert, index) => (
-                    <div key={index} className="flex items-center space-x-4 p-4 bg-white/5 rounded-xl border border-white/10 hover:border-white/20 transition-all">
-                      <div className={`w-3 h-3 ${cert.color.replace('text-', 'bg-')} rounded-full`}></div>
-                      <div>
-                        <div className="text-white font-medium">{cert.title}</div>
-                        <div className={`${cert.color} text-sm`}>{cert.org}</div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
+  <h3 className="text-2xl font-semibold text-white mb-6 flex items-center">
+    <Award className="mr-3 text-purple-400" size={28} />
+    Certifications
+  </h3>
+  <div className="space-y-4">
+    {[
+      {
+        title: '"INUPi2i" Nano Fabrication',
+        org: 'IIT Delhi',
+        color: 'text-yellow-400',
+        link: 'https://drive.google.com/file/d/1mAokjEs-xox166B_lnWDzDgZvq0l0c4-/view?usp=drivesdk'
+      },
+      {
+        title: 'AGV & Drone Technology',
+        org: 'Advanced Robotics',
+        color: 'text-green-400',
+        link: ''
+      },
+      {
+        title: 'Team Leadership',
+        org: 'Expo Management',
+        color: 'text-blue-400',
+        link: ''
+      }
+    ].map((cert, index) => (
+      <div
+        key={index}
+        className="flex items-center space-x-4 p-4 bg-white/5 rounded-xl border border-white/10 hover:border-white/20 transition-all"
+      >
+        <div className={`w-3 h-3 ${cert.color.replace('text-', 'bg-')} rounded-full`}></div>
+        <div>
+          <a
+            href={cert.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-white font-medium hover:underline"
+          >
+            {cert.title}
+          </a>
+          <div className={`${cert.color} text-sm`}>{cert.org}</div>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
             </div>
           </div>
         </div>
@@ -598,7 +695,7 @@ const Portfolio = () => {
             {projects.map((project, index) => (
               <div key={index} className="group bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm rounded-3xl p-8 border border-white/10 hover:border-blue-500/30 transition-all duration-500 transform hover:scale-105">
                 <div className="flex items-center justify-between mb-6">
-                  <div className="text-4xl">{project.image}</div>
+                 
                   <div className={`px-3 py-1 text-xs font-semibold rounded-full ${
                     project.status === 'Completed' ? 'bg-green-500/20 text-green-400' : 'bg-blue-500/20 text-blue-400'
                   }`}>
@@ -706,9 +803,9 @@ const Portfolio = () => {
                 <div className="space-y-6">
                   {[
                     { icon: Mail, label: 'Email', value: 'mr.rahulmaurya024@gmail.com', href: 'mailto:mr.rahulmaurya024@gmail.com' },
-                    { icon: Phone, label: 'Phone', value: '+91 XXX XXX XXXX', href: 'tel:+91XXXXXXXXXX' },
-                    { icon: MapPin, label: 'Location', value: 'India', href: '#' },
-                    { icon: Linkedin, label: 'LinkedIn', value: 'Connect with me', href: '#' }
+                    { icon: Phone, label: 'Phone', value: '+91 9026761140', href: 'tel:+919026761140' },
+                    { icon: MapPin, label: 'Location', value: 'India', href: '' },
+                    { icon: Linkedin, label: 'LinkedIn', value: 'Connect with me', href: 'https://www.linkedin.com/in/rahul-023research/' }
                   ].map((contact, index) => (
                     <a key={index} href={contact.href} className="flex items-center space-x-4 p-4 bg-white/5 rounded-xl hover:bg-white/10 transition-all group">
                       <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center group-hover:animate-pulse">
@@ -782,18 +879,18 @@ const Portfolio = () => {
       <footer className="py-12 px-6 border-t border-white/10 bg-white/5">
         <div className="max-w-7xl mx-auto text-center">
           <div className="flex justify-center items-center space-x-2 mb-4">
-            <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-              <Rocket size={16} className="text-white" />
-            </div>
-            <span className="text-xl font-bold text-white">Rahul<span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Maurya</span></span>
+            
+            <span className="text-xl font-bold text-white">Rahul<span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500"> Maurya</span></span>
           </div>
           <p className="text-gray-400 mb-6">Electronics & Communication Engineer | Innovation Enthusiast | Problem Solver</p>
           <div className="flex justify-center space-x-6 mb-6">
             {[
               { icon: Mail, href: 'mailto:mr.rahulmaurya024@gmail.com' },
-              { icon: Linkedin, href: '#' },
-              { icon: Github, href: '#' },
-              { icon: Phone, href: 'tel:+91XXXXXXXXXX' }
+              { icon: Linkedin, href: 'https://www.linkedin.com/in/rahul-023research/' },
+              { icon: Github, href: '' },
+            
+              { icon:Youtube, href: 'https://youtube.com/@randd_techverse?si=TnbozXdEShFlY1Lo' },
+
             ].map((social, index) => (
               <a key={index} href={social.href} className="w-12 h-12 bg-white/5 hover:bg-gradient-to-r hover:from-blue-500 hover:to-purple-600 border border-white/10 rounded-xl flex items-center justify-center text-gray-400 hover:text-white transition-all transform hover:scale-110">
                 <social.icon size={20} />
